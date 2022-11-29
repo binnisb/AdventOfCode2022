@@ -4,9 +4,9 @@ julia_version = "1.8.3"
 manifest_format = "2.0"
 project_hash = "f82487e90a24bfdfa5ff8614d38f45a22cd05170"
 
-[[deps.AOC2022]]
+[[deps.AOC]]
 deps = ["Revise"]
-path = "src/AOC2022"
+path = "src/AOC"
 uuid = "b5010307-9001-4e88-9e9e-554293a89891"
 version = "0.1.0"
 

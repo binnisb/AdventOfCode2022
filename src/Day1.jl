@@ -1,7 +1,7 @@
 using DrWatson
 @quickactivate "AdventOfCode2022"
 
-using AOC2022
+using AOC
 p_test = datadir("puzzle","test")
 p_full = datadir("puzzle","full")
 

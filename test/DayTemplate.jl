@@ -7,14 +7,16 @@ include(srcdir("Day{PROBLEM}.jl"))
 
 println("Starting tests")
 ti = time()
-@testset "Day {PROBLEM} Test" begin
-    @test d{PROBLEM}_1solve(day{PROBLEM}TestPath) == 7
-    @test d{PROBLEM}_2solve(day{PROBLEM}TestPath) == 5
-end
+@testset "Day {PROBLEM}" begin
+    @testset "Test" begin
+        @test d{PROBLEM}_1solve(day{PROBLEM}TestPath) == 7
+        @test d{PROBLEM}_2solve(day{PROBLEM}TestPath) == 5
+    end
 
-@testset "Day {PROBLEM} Full" begin
-    @test d{PROBLEM}_1solve(day{PROBLEM}FullPath) == 7
-    @test d{PROBLEM}_2solve(day{PROBLEM}FullPath) == 5
+    @testset "Full" begin
+        @test d{PROBLEM}_1solve(day{PROBLEM}FullPath) == 7
+        @test d{PROBLEM}_2solve(day{PROBLEM}FullPath) == 5
+    end
 end
 ti = time() - ti
 println("\nTest took total time of:")
