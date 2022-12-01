@@ -9,13 +9,13 @@ println("Starting tests")
 ti = time()
 @testset "Day 1" begin
     @testset "Test" begin
-        @test d1_1solve(day1TestPath) == 7
-        @test d1_2solve(day1TestPath) == 5
+        @test d1_1solve(day1TestPath) == 24000
+        @test d1_2solve(day1TestPath) == 45000
     end
 
     @testset "Full" begin
-        @test d1_1solve(day1FullPath) == 1581
-        @test d1_2solve(day1FullPath) == 1618
+        @test d1_1solve(day1FullPath) == 66487
+        @test d1_2solve(day1FullPath) == 197301
     end
 end
 ti = time() - ti
