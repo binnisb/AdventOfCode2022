@@ -3,21 +3,24 @@ using DrWatson, Test
 
 # Here you include files using `srcdir`
 # include(srcdir("file.jl"))
+include(srcdir("BaseImports.jl"))
 include(srcdir("Day1.jl"))
 
 println("Starting tests")
-ti = time()
+t1 = time()
 @testset "Day 1" begin
     @testset "Test" begin
-        @test d1_sol(day1TestPath,1) == 24000
-        @test d1_sol(day1TestPath,3) == 45000
+        tp = testpath(1)
+        @test d1_sol(tp,1) == 24000
+        @test d1_sol(tp,3) == 45000
     end
 
     @testset "Full" begin
-        @test d1_sol(day1FullPath,1) == 66487
-        @test d1_sol(day1FullPath,3) == 197301
+        fp = fullpath(1)
+        @test d1_sol(fp,1) == 66487
+        @test d1_sol(fp,3) == 197301
     end
 end
-ti = time() - ti
+t1 = time() - t1
 println("\nTest took total time of:")
-println(round(ti/60, digits = 3), " minutes")
+println(round(t1/60, digits = 3), " minutes")
