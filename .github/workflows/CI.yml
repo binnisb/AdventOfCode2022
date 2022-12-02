@@ -30,9 +30,6 @@ jobs:
           version: ${{ matrix.version }}
           arch: ${{ matrix.arch }}
       - uses: julia-actions/cache@v1
-      - name: Add AOC
-        run: >
-          julia --project -e 'using Pkg; Pkg.add(; url="https://github.com/binnisb/AOC.jl")'
       - uses: julia-actions/julia-buildpkg@v1
 
       - name: Run tests
