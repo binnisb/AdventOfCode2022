@@ -1,11 +1,12 @@
 include("BaseImports.jl")
 using Pipe
 
-chartoind = Dict( ['a':'z'; 'A':'Z'] |> enumerate .|>reverse)
+const chars =  ['a':'z'; 'A':'Z'] |> collect |> join
 
 d3_1sol(fp::Path) = @pipe readlines(fp.filePath) .|> 
     intersect(_[1:Int(length(_)/2)], _[Int(length(_)/2)+1:end]) .|>
-    chartoind[pop!(_)] |>
+    pop! .|>
+    findfirst(_,chars) |>
     sum
 
 d3_2sol(fp::Path) = @pipe readlines(fp.filePath) |> 
@@ -13,5 +14,5 @@ d3_2sol(fp::Path) = @pipe readlines(fp.filePath) |>
     collect |>
     map(c->intersect(c...),_) |>
     pop!.(_) |>
-    map(x->chartoind[x],_) |>
+    map(x->findfirst(x,chars),_) |>
     sum
