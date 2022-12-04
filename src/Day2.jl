@@ -16,10 +16,10 @@ result(f,s) = 6
 
 matchresult(m) = score(Val(last(m))) + result(Val(first(m)), Val(last(m)))
 
-d2(fp::Path)  = @pipe read(fp.filePath, String) |> 
+d2(fp)  = @pipe read(fp, String) |> 
     split(_,"\n") 
 
-d2_1sol(fp::Path) = @pipe fp |>
+d2_1sol(fp) = @pipe fp |>
     d2 |>
     matchresult.(_) |>
     sum
@@ -32,7 +32,7 @@ matchresult(::Val{T}, ::Val{'X'}) where T = 0 + mod(score(Val(T)) - 1 - 1, 3) + 
 matchresult(::Val{T}, ::Val{'Y'}) where T = 3 + score(Val(T))
 matchresult(::Val{T}, ::Val{'Z'}) where T = 6 +  mod(score(Val(T)), 3) + 1
 
-d2_2sol(fp::Path) = @pipe fp |>
+d2_2sol(fp) = @pipe fp |>
     d2 .|>
     matchresult(Val(first(_)), Val(last(_))) |>
     sum
