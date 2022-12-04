@@ -6,21 +6,18 @@ d4(fp) = @pipe fp |>
     split(_,',') .|> 
     map(x->split(x,'-'),_) .|> 
     map(x->parse.(Int,x),_) .|>
-    sort 
+    (first(_[1]):last(_[1]), (first(_[2]):last(_[2])))
 
-compareincluded(f, s) = f[1] == s[1] || (f[1] <= s[1] && f[2] >= s[2])
+compareincluded(f, s) = f ⊆ s || s ⊆ f
 d4_1sol(fp) = @pipe fp |> 
     d4 .|>
     compareincluded(_...) |>
     sum
 
 
-compareintersect(f,s) = f[2] >= s[1]
+compareintersect(f,s) = !isempty(f ∩ s)
 d4_2sol(fp) = @pipe fp |>
     d4 .|>
     compareintersect(_...) |>
     sum
 
-
-fp = testpath(4)
-d4_2sol(fp)
