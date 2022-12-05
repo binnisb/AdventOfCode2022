@@ -1,10 +1,13 @@
-include("BaseImports.jl")
+using DrWatson
+@quickactivate
+
+include(srcdir("BaseImports.jl"))
 using Pipe
 
 d1(fp) = @pipe fp |> 
     read(_, String) |> 
-    split(_, "\n\n") |> 
-    split.(_,"\n") |> 
+    split(_, r"(\n\n|\r\n\r\n)") |> 
+    split.(_,r"(\r\n|\n)") |> 
     map.(p->parse.(Int,p),_) |> 
     sum.(_) |> 
     sort(_; rev=true)

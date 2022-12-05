@@ -3,7 +3,7 @@ using DrWatson, Test
 
 println("Starting tests")
 ttop = time()
-include("Day1.jl")
+#include("Day1.jl")
 include("Day2.jl")
 include("Day3.jl")
 include("Day4.jl")

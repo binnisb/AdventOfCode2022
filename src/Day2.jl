@@ -17,7 +17,7 @@ result(f,s) = 6
 matchresult(m) = score(Val(last(m))) + result(Val(first(m)), Val(last(m)))
 
 d2(fp)  = @pipe read(fp, String) |> 
-    split(_,"\n") 
+    split(_,r"(\r\n|\n)") 
 
 d2_1sol(fp) = @pipe fp |>
     d2 |>
