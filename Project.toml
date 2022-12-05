@@ -2,6 +2,7 @@ name = "AdventOfCode2022"
 authors = ["Brynjar Smári Bjarnason"]
 
 [deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Pipe = "b98c9c47-44ae-5843-9183-064241ee97a0"
 TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
