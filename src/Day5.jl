@@ -28,20 +28,35 @@ struct Instructions
 end
 processinstructions(lines) = Instructions.(lines)
 
-move(instruction::Instructions, crates) = for _ in 1:instruction.move 
+move1(instruction::Instructions, crates) = for _ in 1:instruction.move 
     push!(crates[instruction.to],pop!(crates[instruction.from]))
 end
 
-process(crates, instructions) = begin
+process1(crates, instructions) = begin
     for instruction in instructions
-        move(instruction, crates)
+        move1(instruction, crates)
     end
     crates
 end 
+
+move2(instruction::Instructions, crates) = append!(crates[instruction.to],reverse([pop!(crates[instruction.from]) for _ in 1:instruction.move]))
     
+
+process2(crates, instructions) = begin
+    for instruction in instructions
+        move2(instruction, crates)
+    end
+    crates
+end 
 
 d5_1sol(fp) = @pipe fp |>
     splitcratesinstructions |>
     processcratesandinstructions |>
-    process(_...) |>
+    process1(_...) |>
+    join(pop!(c) for c in _)
+
+d5_2sol(fp) = @pipe fp |>
+    splitcratesinstructions |>
+    processcratesandinstructions |>
+    process2(_...) |>
     join(pop!(c) for c in _)

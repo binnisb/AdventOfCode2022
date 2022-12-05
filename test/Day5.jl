@@ -12,13 +12,13 @@ t5 = time()
     @testset "Test" begin
         tp = testpath(5)
         @test d5_1sol(tp) == "CMZ"
-        #@test d5_2sol(tp) == 4
+        @test d5_2sol(tp) == "MCD"
     end
 
     @testset "Full" begin
         fp = fullpath(5)
         @test d5_1sol(fp) == "RNZLFZSJH"
-        #@test d5_2sol(fp) == 854
+        @test d5_2sol(fp) == "CNSFCGJSM"
     end
 end
 t5 = time() - t5
