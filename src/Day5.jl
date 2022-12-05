@@ -7,13 +7,12 @@ processcratesandinstructions(candi) = (processcrates(candi[1]), processinstructi
 processcrates(lines) = @pipe lines |> reverse |> createstacks
 createstacks(lines) = begin 
     stacksnr = parse(Int,first(lines)[end-1])
-    stacks = [Vector{String}() for _ in 1:stacksnr]
+    stacks = [Vector{Char}() for _ in 1:stacksnr]
     for line in lines[2:end]
-        line = line * " "
         for i in 1:stacksnr
             start = (i-1)*4 + 2
-            box = line[start:start]
-            box == " " && continue
+            box = line[start]
+            box == ' ' && continue
             push!(stacks[i], box)
         end
     end
@@ -28,9 +27,10 @@ struct Instructions
 end
 processinstructions(lines) = Instructions.(lines)
 
-move1(instruction::Instructions, crates) = for _ in 1:instruction.move 
-    push!(crates[instruction.to],pop!(crates[instruction.from]))
-end
+move1(instruction::Instructions, crates) = append!(
+    crates[instruction.to],
+    [pop!(crates[instruction.from]) for _ in 1:instruction.move ]
+)
 
 process1(crates, instructions) = begin
     for instruction in instructions
@@ -39,7 +39,10 @@ process1(crates, instructions) = begin
     crates
 end 
 
-move2(instruction::Instructions, crates) = append!(crates[instruction.to],reverse([pop!(crates[instruction.from]) for _ in 1:instruction.move]))
+move2(instruction::Instructions, crates) = append!(
+    crates[instruction.to],
+    reverse([pop!(crates[instruction.from]) for _ in 1:instruction.move])
+)
     
 
 process2(crates, instructions) = begin
