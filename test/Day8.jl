@@ -13,12 +13,13 @@ t8 = time()
         tp = testpath(8)
         
         @test d8_1sol(tp) == 21
-        @test d8_2sol(tp) == 21
+        @test d8_2sol(tp) == 8
     end
 
     @testset "Full" begin
         fp = fullpath(8)
         @test d8_1sol(fp) == 1690
+        @test d8_2sol(fp) == 535680
     end
 end
 t8 = time() - t8

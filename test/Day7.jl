@@ -4,7 +4,7 @@ using DrWatson, Test
 # Here you include files using `srcdir`
 # include(srcdir("file.jl"))
 include(srcdir("BaseImports.jl"))
-include(srcdir("Da7.jl"))
+include(srcdir("Day7.jl"))
 
 println("Starting tests")
 t7 = time()
@@ -17,7 +17,7 @@ t7 = time()
 
     @testset "Full" begin
         fp = fullpath(7)
-        # @test d6_1sol(read(fp,String)) == 1912
+        @test d7_1sol(fp) == 1912
         # @test d6_2sol(read(fp,String)) == 2122
     end
 end

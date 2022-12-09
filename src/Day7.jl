@@ -31,34 +31,56 @@ end
 
 
 
-d7_1sol(fp) = begin
+d7(fp) = begin
     pl=@pipe fp |> readlines .|> parseline
     mg = MetaDiGraph()
     set_indexing_prop!(mg, :path)
-    add_vertex!(mg, :path, "ROOT")
-    currentvertex = mg["ROOT", :path]
-    set_props!(mg, currentvertex, Dict(:previous=>nothing, :total=>0, :distance=>0))
-    for line in pl
+    add_vertex!(mg, :path, "/")
+    currentvertex = mg["/", :path]
+    set_props!(mg, currentvertex, Dict(:total=>0))
+    for (i, line) in enumerate(pl)
         if (typeof(line) == cd) && (line.dir == "..")
+            currentvertex == mg["/",:path] && continue
             currentvertex = inneighbors(mg, currentvertex)[1]
+        elseif (typeof(line) == cd) && (line.dir == "/")
+            currentvertex = mg["/",:path]
         elseif typeof(line) == cd
+            if line.dir ∈ keys(mg[:path])
+                currentvertex = mg[line.dir, :path]
+                continue
+            end
             add_vertex!(mg, :path, line.dir)
             previousvertex, currentvertex = currentvertex, mg[line.dir, :path]
             add_edge!(mg,previousvertex=>currentvertex)
-            set_props!(mg, currentvertex, Dict(:previous=>previousvertex,:total=>0, :distance=>mg[previousvertex, :distance]+1))
+            set_props!(mg, currentvertex, Dict(:total=>0))
         elseif typeof(line) ∈ (dir,ls)
             continue
         else
-            add_vertex!(mg, :path, line.name)
-            add_edge!(mg, currentvertex=>mg[line.name, :path])
-            set_props!(mg, mg[line.name, :path], Dict(:fs=>line.fs, :leaf=>true, :previous=>currentvertex, :distance=>mg[currentvertex, :distance]+1))
+            set_prop!(mg, currentvertex, :total, line.fs+get_prop(mg, currentvertex, :total))
         end
     end
     mg
 end
-processgraph(g, node, total=0) = begin
-    if g[]
+
+sumgraph(mg, v, sums=Dict{Int,Int}()) = begin
+    currenttotal = get_prop(mg, v, :total)
+    if outdegree(mg, v) == 0
+        sums[v] = currenttotal
+        return (sums, sums[v])
+    end
+    vsum = 0
+    for n in outneighbors(mg, v)
+        sums, s = sumgraph(mg, n, sums)
+        vsum += s
+    end
+    sums[v] = vsum + currenttotal
+    return (sums, sums[v])
 end
 
-tp = testpath(7)
-mg = d7_1sol(tp)
+
+d7_1sol(p) = @pipe d7(p) |> sumgraph(_,_["/", :path])[1] |> filter(<=(100000),values(_)|>collect) |> sum
+
+p=fullpath(7)
+#p=testpath(7)
+res = d7_1sol(p)
+res
