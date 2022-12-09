@@ -8,6 +8,7 @@ DrWatson = "634d3b9d-ee7a-5ddf-bec9-22491ea816e1"
 Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
 MetaGraphs = "626554b9-1ddb-594c-aa3c-2596fe9399a5"
 Pipe = "b98c9c47-44ae-5843-9183-064241ee97a0"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 TestItemRunner = "f8b46487-2199-4994-9208-9a1283c18c0a"
 TestItems = "1c621080-faea-4a02-84b6-bbd5e436b8fe"
 
